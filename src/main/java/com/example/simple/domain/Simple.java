@@ -32,8 +32,6 @@ public class Simple {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return (id == null || id.isEmpty())
-                && (simpleId == null || simpleId.isEmpty())
-                && (name == null || name.isEmpty());
+        return (id == null || id.isEmpty()) && (simpleId == null || simpleId.isEmpty()) && (name == null || name.isEmpty());
     }
 }

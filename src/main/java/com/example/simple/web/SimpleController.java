@@ -2,7 +2,6 @@ package com.example.simple.web;
 
 import com.example.simple.domain.Simple;
 import com.example.simple.service.SimpleService;
-import com.example.simple.util.FunctionalException;
 import com.example.simple.web.response.SimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,13 +39,12 @@ public class SimpleController {
     }
 
     @GetMapping(path = "/{simpleId}")
-    public Simple findSimpleById(@PathVariable final String simpleId) throws FunctionalException {
+    public Simple findSimpleById(@PathVariable final String simpleId) {
         return simpleService.findSimpleById(simpleId);
     }
 
     @PutMapping(path = "/{simpleId}")
-    public ResponseEntity<?> saveSimple(@PathVariable @NotEmpty final String simpleId, @RequestBody Simple simple)
-            throws FunctionalException {
+    public ResponseEntity<?> saveSimple(@PathVariable @NotEmpty final String simpleId, @RequestBody Simple simple) {
         simpleService.saveSimple(simpleId, simple);
 
         return ResponseEntity.created(
@@ -58,7 +56,7 @@ public class SimpleController {
     }
 
     @DeleteMapping(path = "/{simpleId}")
-    public ResponseEntity<?> deleteSimple(@PathVariable @NotEmpty final String simpleId) throws FunctionalException {
+    public ResponseEntity<?> deleteSimple(@PathVariable @NotEmpty final String simpleId) {
         simpleService.deleteSimple(simpleId);
 
         return ResponseEntity.accepted().build();

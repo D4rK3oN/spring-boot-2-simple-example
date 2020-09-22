@@ -1,7 +1,7 @@
 package com.example.simple.web;
 
-import com.example.simple.util.FunctionalException;
-import com.example.simple.util.ExceptionEnum;
+import com.github.d4rk3on.spring.mvc.util.ErrorEnum;
+import com.github.d4rk3on.spring.mvc.util.exception.FunctionalException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +32,7 @@ public class TestController {
     @RequestMapping(value = "/functionalException", method = RequestMethod.GET)
     public String testFunctionalException() throws FunctionalException {
         throw new FunctionalException("Throw FunctionalException",
-                ExceptionEnum.INVALID_INPUT_PARAMETERS,
+                ErrorEnum.INVALID_INPUT_PARAMETERS,
                 "Testing functional exception");
     }
 }

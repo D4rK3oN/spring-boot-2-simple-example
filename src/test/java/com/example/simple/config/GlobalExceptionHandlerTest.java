@@ -1,13 +1,16 @@
 package com.example.simple.config;
 
-import com.example.simple.util.ExceptionEnum;
-import com.example.simple.web.response.GlobalExceptionResponse;
+import com.github.d4rk3on.spring.mvc.model.Error;
+import com.github.d4rk3on.spring.mvc.model.response.GlobalExceptionResponse;
+import com.github.d4rk3on.spring.mvc.util.ErrorEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,11 +31,19 @@ class GlobalExceptionHandlerTest {
         assertAll(
                 () -> assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode()),
                 () -> assertNotNull(response.getBody()),
-                () -> assertEquals(GlobalExceptionResponse.builder()
-                        .code(ExceptionEnum.INTERNAL_SERVER_ERROR.getHttpStatus().value())
-                        .message(ExceptionEnum.INTERNAL_SERVER_ERROR.getMessage())
-                        .detail("Exception : Throw Exception")
-                        .build(), response.getBody())
+                () -> assertEquals(
+                        GlobalExceptionResponse.builder()
+                                .errors(
+                                        Collections.singletonList(
+                                                Error.builder()
+                                                        .httpStatus(ErrorEnum.INTERNAL_SERVER_ERROR.getHttpStatus())
+                                                        .cause(ErrorEnum.INTERNAL_SERVER_ERROR.getMessage())
+                                                        .message("Throw Exception")
+                                                        .build()
+                                        )
+                                )
+                                .build(),
+                        response.getBody())
         );
     }
 
@@ -45,11 +56,18 @@ class GlobalExceptionHandlerTest {
         assertAll(
                 () -> assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode()),
                 () -> assertNotNull(response.getBody()),
-                () -> assertEquals(GlobalExceptionResponse.builder()
-                        .code(ExceptionEnum.INVALID_INPUT_PARAMETERS.getHttpStatus().value())
-                        .message(ExceptionEnum.INVALID_INPUT_PARAMETERS.getMessage())
-                        .detail("ConstraintViolationException : ")
-                        .build(), response.getBody())
+                () -> assertEquals(
+                        GlobalExceptionResponse.builder()
+                                .errors(
+                                        Collections.singletonList(
+                                                Error.builder()
+                                                        .httpStatus(ErrorEnum.INVALID_INPUT_PARAMETERS.getHttpStatus())
+                                                        .cause(ErrorEnum.INVALID_INPUT_PARAMETERS.getMessage())
+                                                        .build()
+                                        )
+                                )
+                                .build(),
+                        response.getBody())
         );
     }
 
@@ -62,11 +80,19 @@ class GlobalExceptionHandlerTest {
         assertAll(
                 () -> assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode()),
                 () -> assertNotNull(response.getBody()),
-                () -> assertEquals(GlobalExceptionResponse.builder()
-                        .code(ExceptionEnum.INVALID_REQUEST.getHttpStatus().value())
-                        .message(ExceptionEnum.INVALID_REQUEST.getMessage())
-                        .detail("HttpMessageNotReadableException : Required request body is missing")
-                        .build(), response.getBody())
+                () -> assertEquals(
+                        GlobalExceptionResponse.builder()
+                                .errors(
+                                        Collections.singletonList(
+                                                Error.builder()
+                                                        .httpStatus(ErrorEnum.INVALID_REQUEST.getHttpStatus())
+                                                        .cause(ErrorEnum.INVALID_REQUEST.getMessage())
+                                                        .message("Required request body is missing")
+                                                        .build()
+                                        )
+                                )
+                                .build(),
+                        response.getBody())
         );
     }
 
@@ -79,11 +105,19 @@ class GlobalExceptionHandlerTest {
         assertAll(
                 () -> assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode()),
                 () -> assertNotNull(response.getBody()),
-                () -> assertEquals(GlobalExceptionResponse.builder()
-                        .code(ExceptionEnum.INVALID_INPUT_PARAMETERS.getHttpStatus().value())
-                        .message(ExceptionEnum.INVALID_INPUT_PARAMETERS.getMessage())
-                        .detail("Testing functional exception")
-                        .build(), response.getBody())
+                () -> assertEquals(
+                        GlobalExceptionResponse.builder()
+                                .errors(
+                                        Collections.singletonList(
+                                                Error.builder()
+                                                        .httpStatus(ErrorEnum.INVALID_INPUT_PARAMETERS.getHttpStatus())
+                                                        .cause(ErrorEnum.INVALID_INPUT_PARAMETERS.getMessage())
+                                                        .message("Throw FunctionalException >>> Testing functional exception")
+                                                        .build()
+                                        )
+                                )
+                                .build(),
+                        response.getBody())
         );
     }
 }

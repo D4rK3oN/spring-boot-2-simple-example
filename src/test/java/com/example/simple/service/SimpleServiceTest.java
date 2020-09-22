@@ -2,7 +2,7 @@ package com.example.simple.service;
 
 import com.example.simple.domain.Simple;
 import com.example.simple.repository.SimpleRepository;
-import com.example.simple.util.FunctionalException;
+import com.github.d4rk3on.spring.mvc.util.exception.FunctionalException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

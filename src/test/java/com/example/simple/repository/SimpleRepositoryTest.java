@@ -41,12 +41,6 @@ class SimpleRepositoryTest {
     @Autowired
     private SimpleRepository simpleRepository;
 
-    /**
-     * Load the JSON file in the embed Mongodb.
-     *
-     * @param path
-     * @throws IOException
-     */
     private void loadFileInMongodb(String path) throws IOException {
         mongoOperations.dropCollection(mongoDbCollectionsConfig.getSimpleObjects());
 

@@ -2,8 +2,8 @@ package com.example.simple.service;
 
 import com.example.simple.domain.Simple;
 import com.example.simple.repository.SimpleRepository;
-import com.example.simple.util.ExceptionEnum;
-import com.example.simple.util.FunctionalException;
+import com.github.d4rk3on.spring.mvc.util.ErrorEnum;
+import com.github.d4rk3on.spring.mvc.util.exception.FunctionalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -35,14 +35,6 @@ public class SimpleServiceImpl implements SimpleService {
         return !CollectionUtils.isEmpty(simpleList) ? simpleList : List.of();
     }
 
-    /**
-     * Evaluate the type of find we must launch based on the input parameters.
-     *
-     * @param name
-     * @param initialAge
-     * @param finalAge
-     * @return Type find we must execute.
-     */
     private String evaluateFindRequest(Optional<String> name, Optional<Integer> initialAge, Optional<Integer> finalAge) {
         if (name.isPresent() && (initialAge.isPresent() || finalAge.isPresent()))
             return FIND_BY_ALL_FILTERS;
@@ -56,15 +48,6 @@ public class SimpleServiceImpl implements SimpleService {
         return FIND_ALL;
     }
 
-    /**
-     * Execute the find method we must launch based on the requestType.
-     *
-     * @param requestType
-     * @param name
-     * @param initialAge
-     * @param finalAge
-     * @return Simple list.
-     */
     private List<Simple> executeFindRequest(String requestType, String name, Integer initialAge, Integer finalAge) {
         switch (requestType) {
             case FIND_ALL:
@@ -76,49 +59,45 @@ public class SimpleServiceImpl implements SimpleService {
             case FIND_BY_AGE:
                 return simpleRepository.findAllByAgeBetween(initialAge, finalAge);
             default:
-                throw new FunctionalException("Error evaluating find request", ExceptionEnum.INTERNAL_SERVER_ERROR);
+                throw new FunctionalException("Error evaluating find request", ErrorEnum.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public Simple findSimpleById(String simpleId) throws FunctionalException {
+    public Simple findSimpleById(String simpleId) {
         final var simple = simpleRepository.findBySimpleId(simpleId).orElse(null);
 
         if (simple == null || simple.isEmpty())
             throw new FunctionalException(
-                    "Not valid findBySimpleId response",
-                    ExceptionEnum.NO_DATA_FOUND,
-                    "ID [".concat(simpleId).concat("] not exist"));
+                    "Not valid findBySimpleId response", ErrorEnum.NO_DATA_FOUND, "ID [".concat(simpleId).concat("] not exist")
+            );
 
         return simple;
     }
 
     @Override
-    public void saveSimple(String simpleId, Simple simple) throws FunctionalException {
+    public void saveSimple(String simpleId, Simple simple) {
         try {
             simpleRepository.save(simple.toBuilder().simpleId(simpleId).build());
         } catch (DuplicateKeyException ex) {
             throw new FunctionalException(
-                    ex.getMessage(),
-                    ExceptionEnum.CONFLICT,
-                    "Index <simpleId> : duplicate key [".concat(simpleId).concat("]")
+                    ex.getMessage(), ErrorEnum.CONFLICT, "Index <simpleId> : duplicate key [".concat(simpleId).concat("]")
             );
         }
     }
 
     @Override
-    public void deleteSimple(String simpleId) throws FunctionalException {
+    public void deleteSimple(String simpleId) {
         simpleRepository.delete(findSimpleToDeleteBySimpleId(simpleId));
     }
 
-    private Simple findSimpleToDeleteBySimpleId(String simpleId) throws FunctionalException {
+    private Simple findSimpleToDeleteBySimpleId(String simpleId) {
         final var simple = simpleRepository.findBySimpleId(simpleId).orElse(null);
 
         if (simple == null || simple.isEmpty())
             throw new FunctionalException(
-                    "Resource to delete not found",
-                    ExceptionEnum.NO_DATA_FOUND,
-                    "ID [".concat(simpleId).concat("] not exist"));
+                    "Resource to delete not found", ErrorEnum.NO_DATA_FOUND, "ID [".concat(simpleId).concat("] not exist")
+            );
 
         return simple;
     }

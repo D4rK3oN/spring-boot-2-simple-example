@@ -1,2 +1,7 @@
 # MONGODB (MongoProperties)
 spring.data.mongodb.collections.simpleObjects: simpleObjects
+
+logging.level:
+  com.github.d4rk3on.spring.mvc: DEBUG
+  org.springframework: DEBUG
+  org.springframework.data: DEBUG

@@ -1,5 +1,10 @@
 server.port: 9080
 
+logging.level:
+  com.github.d4rk3on.spring.mvc: DEBUG
+  org.springframework: INFO
+  org.springframework.data: INFO
+
 # MONGODB (MongoProperties)
 spring.data.mongodb:
   host: mongodb

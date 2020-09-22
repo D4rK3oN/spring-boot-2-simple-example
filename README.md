@@ -1,8 +1,7 @@
 <!-- PROJECT SHIELDS -->
-[![Coverage Status](https://coveralls.io/repos/github/D4rK3oN/spring-boot-2-simple-example/badge.svg?branch=master)](https://coveralls.io/github/D4rK3oN/spring-boot-2-simple-example?branch=master)
+[![Coverage Status][coveralls-shield]][coveralls-url]
+[![JitPack][jitpack-shield]][jitpack-url]
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -105,12 +104,12 @@ Program args: --spring.profiles.active=dev
 See the [open issues](https://github.com/D4rK3oN/spring-boot-2-simple-example/issues) for a list of proposed features (and known issues).
 
 <!-- MARKDOWN LINKS & IMAGES : https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[coveralls-shield]: https://coveralls.io/repos/github/D4rK3oN/spring-boot-2-simple-example/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/D4rK3oN/spring-boot-2-simple-example?branch=master
+[jitpack-shield]: https://jitpack.io/v/D4rK3oN/lib-spring-boot-mvc.svg
+[jitpack-url]: https://jitpack.io/#D4rK3oN/lib-spring-boot-mvc
 [contributors-shield]: https://img.shields.io/github/contributors/D4rK3oN/spring-boot-2-simple-example.svg?style=flat-square
 [contributors-url]: https://github.com/D4rK3oN/spring-boot-2-simple-example/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/D4rK3oN/spring-boot-2-simple-example.svg?style=flat-square
-[forks-url]: https://github.com/D4rK3oN/spring-boot-2-simple-example/network/members
-[stars-shield]: https://img.shields.io/github/stars/D4rK3oN/spring-boot-2-simple-example.svg?style=flat-square
-[stars-url]: https://github.com/D4rK3oN/spring-boot-2-simple-example/stargazers
 [issues-shield]: https://img.shields.io/github/issues/D4rK3oN/spring-boot-2-simple-example.svg?style=flat-square
 [issues-url]: https://github.com/D4rK3oN/spring-boot-2-simple-example/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
